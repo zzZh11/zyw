@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>键盘绘画师 - Keyboard Artist</title>
+    <link rel="stylesheet" href="/zyw/style.css">
+</head>
+<body>
+    <div id="canvas" class="canvas">
+        <div class="hint">
+            <h1>🎨 键盘绘画师</h1>
+            <p>开始敲击键盘，创作你的艺术</p>
+            <p class="controls">
+                按 <kbd>ESC</kbd> 清空 | 
+                <kbd>↑↓←→</kbd> 移动视角 | 
+                <kbd>+/-</kbd> 缩放 | 
+                点击删除元素
+            </p>
+        </div>
+        <div id="art-container" class="art-container"></div>
+    </div>
+    
+    <div class="control-panel">
+        <div class="control-group">
+            <label>形状:</label>
+            <select id="shape-select">
+                <option value="random">随机</option>
+                <option value="shape-circle">圆形</option>
+                <option value="shape-square">方形</option>
+                <option value="shape-rounded">圆角</option>
+                <option value="shape-triangle">三角形</option>
+                <option value="shape-star">星形</option>
+                <option value="shape-heart">心形</option>
+                <option value="shape-diamond">菱形</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>动画:</label>
+            <select id="animation-select">
+                <option value="random">随机</option>
+                <option value="animation-breathe">呼吸</option>
+                <option value="animation-rotate">旋转</option>
+                <option value="animation-float">漂浮</option>
+                <option value="animation-pulse">闪烁</option>
+                <option value="animation-spin">快速旋转</option>
+                <option value="animation-wobble">摇摆</option>
+                <option value="">无</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>颜色:</label>
+            <select id="color-select">
+                <option value="random">随机</option>
+                <option value="pastel">柔和色系</option>
+                <option value="vibrant">鲜艳色系</option>
+                <option value="dark">深色系</option>
+                <option value="custom">自定义</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>自定义颜色:</label>
+            <input type="color" id="custom-color" value="#ff0000">
+        </div>
+        <div class="control-group">
+            <label>大小范围:</label>
+            <input type="range" id="size-range" min="20" max="200" value="80">
+        </div>
+        <div class="control-group">
+            <button id="save-btn">保存作品</button>
+            <button id="share-btn">分享</button>
+        </div>
+    </div>
+    
+    <div class="stats">
+        <span>元素数量: <span id="element-count">0</span></span>
+        <span style="margin-left: 10px;">缩放: <span id="zoom-level">100%</span></span>
+    </div>
+    
+    <script src="/zyw/script.js"></script>
+</body>
+</html>

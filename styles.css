@@ -1,0 +1,390 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background: #0a0a0a;
+}
+
+.canvas {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0a 100%);
+    overflow: hidden;
+}
+
+.hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.hint.hidden {
+    opacity: 0;
+}
+
+.hint h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hint p {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #aaa;
+}
+
+.controls {
+    font-size: 0.9rem !important;
+    color: #666 !important;
+}
+
+kbd {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: monospace;
+}
+
+.art-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.art-element {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    animation: entrance 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    user-select: none;
+}
+
+.art-element:hover {
+    transform: scale(1.1);
+    z-index: 100;
+}
+
+.art-element.removing {
+    animation: exit 0.3s ease-out forwards;
+}
+
+/* 形状样式 - 修复特殊形状 */
+.shape-circle {
+    border-radius: 50%;
+}
+
+.shape-square {
+    border-radius: 0;
+}
+
+.shape-rounded {
+    border-radius: 15%;
+}
+
+/* 三角形 - 使用clip-path创建，确保可以显示文本 */
+.shape-triangle {
+    position: relative;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 星形 - 使用clip-path创建 */
+.shape-star {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(
+        50% 0%, 
+        61% 35%, 
+        98% 35%, 
+        68% 57%, 
+        79% 91%, 
+        50% 70%, 
+        21% 91%, 
+        32% 57%, 
+        2% 35%, 
+        39% 35%
+    );
+}
+
+.shape-heart {
+    position: relative;
+    width: 50px;
+    height: 45px;
+    background: transparent !important;
+}
+
+.shape-heart:before,
+.shape-heart:after {
+    content: '';
+    position: absolute;
+    left: 25px;
+    top: 0;
+    width: 26px;
+    height: 40px;
+    background: inherit;
+    border-radius: 25px 25px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+
+.shape-heart:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+.shape-diamond {
+    transform: rotate(45deg);
+}
+
+/* 动画效果 */
+@keyframes entrance {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+@keyframes exit {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+/* 高级动画效果 */
+.animation-breathe {
+    animation: breathe 2s ease-in-out infinite;
+}
+
+.animation-rotate {
+    animation: rotate 4s linear infinite;
+}
+
+.animation-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animation-pulse {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.animation-spin {
+    animation: spin 8s linear infinite;
+}
+
+.animation-wobble {
+    animation: wobble 5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes wobble {
+    0%, 100% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+/* 统计信息和控制面板 */
+.stats {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.control-panel {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.control-panel label {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.control-panel select, .control-panel input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.control-panel select option {
+    background: white;
+    color: #222;
+}
+
+.control-panel button {
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.control-panel button:hover {
+    opacity: 0.9;
+}
+
+.control-panel button:active {
+    opacity: 0.8;
+}
+
+input[type="color"] {
+    width: 100%;
+    height: 30px;
+    padding: 2px;
+    background: transparent;
+    border: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .hint h1 {
+        font-size: 2rem;
+    }
+    
+    .hint p {
+        font-size: 1rem;
+    }
+    
+    .controls {
+        font-size: 0.8rem !important;
+    }
+
+    .control-panel {
+        width: calc(100% - 40px);
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .control-group {
+        flex: 1;
+        min-width: 120px;
+    }
+}
+
+/* 粒子效果 */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    z-index: 999;
+    opacity: 0.8;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
